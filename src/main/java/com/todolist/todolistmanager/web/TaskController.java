@@ -17,12 +17,12 @@ import com.todolist.todolistmanager.pojo.Task;
 import com.todolist.todolistmanager.service.TaskService;
 
 @RestController
-@RequestMapping("/api/task")
+@RequestMapping("/api")
 public class TaskController {
     @Autowired
     TaskService taskService;
 
-    @GetMapping("/all")
+    @GetMapping("/tasks")
     public ResponseEntity<List<Task>> getTasks(){
         return new ResponseEntity<>(taskService.getTasks(), HttpStatus.OK);
     }
@@ -38,9 +38,9 @@ public class TaskController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping("/tasks/delete")
-    public ResponseEntity<HttpStatus> deleteTask(@RequestBody Task task){
-        taskService.deleteTask(task);
+    @DeleteMapping("/tasks/delete/{id}")
+    public ResponseEntity<HttpStatus> deleteTask(@PathVariable Integer id){
+        taskService.deleteTask(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
